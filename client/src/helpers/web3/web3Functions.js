@@ -1,85 +1,69 @@
-import Web3 from "web3";
+import detectEthereumProvider from '@metamask/detect-provider';
 import SimpleStorageContract from "../../contracts/PasswordVault.json";
 import axios from 'axios';
-
-//ADD LISTENERS
+import Web3 from 'web3';
 
 //CONNECT TO WEB3
-//This function instantiates a web3 connection to metamask
-export async function connectToWeb3(setWeb3, setAccounts, setChainId, setContract) {
 
-  try {
+export async function intializeEthereumConnection(setWeb3, setAccounts, setChainId) {
+  const provider = await detectEthereumProvider();
+  if(provider) {
+    //CHECK IF CURRENT PROVIDER IS ETHEREUM
+    console.log(provider);
+    if(provider !== window.ethereum){
+      throw new Error('Multiple wallets detected cannot ensure a ethereum connection');
+    }
 
-    const web3 = await getWeb3();
-    const accounts = await web3.eth.getAccounts();
+    //TODO CHANGE 80001 TO MATIC MAIN 137
+    //CHECK IF CONNECTED TO MUMBAI TESTNET
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    if(parseInt(chainId, 16) !== 80001 && parseInt(chainId, 16) !== 1){
+      throw new Error('Connect to the mumbai testnet or ethereum mainnet');
+    };
 
-    //LISTENERS
-    //Change of accounts
-    window.ethereum.on('accountsChanged', async (info) => {
-      window.location.reload()
-    });
-
-    //Change of chain
-    window.ethereum.on('chainChanged', (chain) => {
-      setChainId(parseInt(chain).toString())
+    //LISTEN FOR NETWORK CHANGES
+    window.ethereum.on('chainChanged', () => {
+      window.location.reload();
     })
+            
+    //GET ACCOUNTS
+    let currentAccount = null;
 
-    //Set variables to store
-    setWeb3(web3)
-    setAccounts(accounts)
-    setChainId(await window.ethereum.networkVersion)
+    const handleAccountsChanged = (accounts) => {
+      if(accounts.length === 0) {
+        window.location.reload();
+      } else {
+        currentAccount = accounts;
+        setWeb3(new Web3(window.ethereum));
+        setAccounts(currentAccount);
+        setChainId(parseInt(chainId, 16))
+      }
+    }
 
-  } catch (error) {
-    // Catch any errors for any of the above operations.
-    alert(
-      `Failed to load web3, accounts, or contract. Check console for details.`,
-    );
-    console.error(error);
+    await window.ethereum
+      .request({method: 'eth_requestAccounts'})
+      .then(res => handleAccountsChanged(res))
+      .catch(err => {
+        if(err.code === 4001) {
+          throw new Error('User refused the connection')
+        }
+      })
+
+    await window.ethereum
+      .request({ method: 'eth_accounts' })
+      .then(res => handleAccountsChanged(res))
+      .catch((err) => {
+        throw new Error('Ethereum could not get accounts')
+      });
+
+    window.ethereum.on('accountsChanged', (res) => handleAccountsChanged(res));
+    
+  } else {
+    console.log('INSTALL METAMASK')
   }
 }
 
-//GET WEB 3 INSTANCE
-//Creates a web3 instance
-const getWeb3 = () =>
-  new Promise((resolve, reject) => {
-    // Wait for loading completion to avoid race conditions with web3 injection timing.
-    window.addEventListener("load", async () => {
-      // Modern dapp browsers...
-      if (window.ethereum) {
-        const web3 = new Web3(window.ethereum);
-        try {
-          // Request account access if needed
-          await window.ethereum.enable();
-          // Accounts now exposed
-
-          resolve(web3);
-        } catch (error) {
-          reject(error);
-        }
-      }
-      // Legacy dapp browsers...
-      else if (window.web3) {
-        // Use Mist/MetaMask's provider.
-        const web3 = window.web3;
-        console.log("Injected web3 detected.");
-        resolve(web3);
-      }
-      // Fallback to localhost; use dev console port by default...
-      else {
-        const provider = new Web3.providers.HttpProvider(
-          "http://127.0.0.1:8545"
-        );
-        const web3 = new Web3(provider);
-        console.log("No web3 instance injected, using Local web3.");
-        resolve(web3);
-      }
-    });
-  });
-
-
-
 //DEPLOY CONTRACT
-//Deploys the contract
 export const deployPasswordContract = async (accounts, web3, setDeployementState) => {
   setDeployementState(1)
   
@@ -101,14 +85,17 @@ export const deployPasswordContract = async (accounts, web3, setDeployementState
     return gasAmount;
   })
 
+  let gasStandard = await axios.get('https://gasstation-mainnet.matic.network/').then(res => {
+    return res.data.standard.toString()
+  })
+
   setDeployementState(3)
 
-  //TODO GET WEI FROM GASSTATION
   //SEND CONTRACT
   const DEPLOYED_CONTRACT = await BUILD_CONTRACT.send({
     from: accounts[0],
     gas: Math.round(GASAMOUNT / 100 * 105),
-    gasPrice: Web3.utils.toWei("5", 'Gwei'),
+    gasPrice: Web3.utils.toWei(gasStandard, 'Gwei'),
   }).then(async (newContractInstance) => {
     return newContractInstance
   })
@@ -118,42 +105,4 @@ export const deployPasswordContract = async (accounts, web3, setDeployementState
 
   return DEPLOYED_CONTRACT._address;
 
-}
-
-
-//ALL CONTRACT INTERACTIONS
-//CRUD ETC...
-export const InteractWithContract = async (accounts, web3, contract) => {
-  const CONTRACT = new web3.eth.Contract(SimpleStorageContract.abi, contract);
-  console.log(CONTRACT.methods)  
- 
-  await CONTRACT.methods.addToVault("snapchat", "oeioei").send({from: accounts[0]}).then(res => {
-    console.log('SUCCES')
-  })
-  //TEST GET
-  await CONTRACT.methods.getCompleteVault().call({from: accounts[0]}).then(res => {
-    console.log(res);
-  })
-  /*
-  //TEST DELETE
-  await CONTRACT.methods.removeFromVault('netlog').send({from: accounts[0]}).then(res => {
-    console.log('DELETE FROM ARRAY')
-  })
-
-  //TEST GET
-  await CONTRACT.methods.getCompleteVault().call({from: accounts[0]}).then(res => {
-    console.log(res);
-  })
-  */
-
-}
-
-
-// GET ALL PASSWORDS FROM THE CONTRACT
-
-export const getPasswordsFromVault = async (accounts, web3, contract) => {
-  const CONTRACT = new web3.eth.Contract(SimpleStorageContract.abi, contract);
-  await CONTRACT.methods.getCompleteVault().call({from: accounts[0]}).then(res => {
-    console.log(res);
-  })
 }

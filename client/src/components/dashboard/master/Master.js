@@ -5,29 +5,24 @@ import { BlueButton, GreenButton } from '../../../styling/global';
 import {CgLastpass} from 'react-icons/cg';
 
 
-
 export const Master = () => {
 
     const {master, setMaster, contract} = React.useContext(StoreContext)
-    const [input, setInput] = React.useState("")
-    const [visibleMaster, setVisibleMaster] = React.useState(false)
     const [visibleContract, setVisibleContract] = React.useState(false)
 
-    const handleInput = () => {
-        setMaster(input)
+    const handleInput = (value) => {
+        setMaster(value)
     }
 
     return (
         <Container>
             <div>
                 <h3>Master Password.</h3>
-                <input placeholder={master.replaceAll(/./g,"*")} type="password" onChange={(e) => {setInput(e.target.value)}}/>
-                <GreenButton onClick={handleInput}>Apply</GreenButton>
-                <sub onClick={() => setVisibleMaster(!visibleMaster)}>{visibleMaster ? master : master.replaceAll(/./g,"*") }</sub>
+                <input placeholder={master.replaceAll(/./g,"*")} type="password" onChange={(e) => {handleInput(e.target.value)}}/>
             </div>
             <div>
                 <h3>Contract.</h3>
-                <sub onClick={() => setVisibleContract(!visibleContract)}>{visibleContract ? contract : contract.replaceAll(/./g, "*")}</sub>
+                <p onClick={() => setVisibleContract(!visibleContract)}>{visibleContract ? contract : contract.replaceAll(/./g, "*")}</p>
             </div>
         </Container>
     )
@@ -57,13 +52,16 @@ const Container = styled.div`
         padding: 15px;
     }
 
-    sub{
-        margin-bottom: 0px;
-        padding-bottom: 0px;
+    div:nth-of-type(2){
+        min-width: 370px;
+    }
+
+    p{
+        display: inline-block;
+        margin-top: 8px !important;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 12px;
         color: ${props => props.theme.white};
-        font-weight: bold;
     }
 
     button{

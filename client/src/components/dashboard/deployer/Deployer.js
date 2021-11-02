@@ -49,8 +49,9 @@ export const Deployer = () => {
 
     //TODO CHANGE TO 137 IN PROD
     //DEPLOYS A NEW CONTRACT WHEN ON THE RIGHT CHAIN
+    
     const deploy = async () => {
-        if(chainId !== "80001"){
+        if(chainId !== 80001 && chainId !== 1){
             alert('NOT CONNECTED TO THE RIGHT CHAIN')
         } else {
             const ADDRESS = await deployPasswordContract(accounts, web3, setDeployementState).catch(() => {
@@ -62,6 +63,7 @@ export const Deployer = () => {
             }
         }
     }
+    
 
     //HANDLE CONTRACT SET
     const handleContractSet = () => {
@@ -71,8 +73,14 @@ export const Deployer = () => {
 
 
     //TODO CHANGE TO 137 IN PROD
-    if(chainId !== "80001"){
-        return <p>CONNECT TO the MUMBAI TESTCHAIN</p>
+    if(chainId !== 80001 && chainId !== 1){
+        return (
+        <Container>
+            <div>
+                <h3>CONNECT TO THE MUMBAI TESTCHAIN</h3>
+            </div>
+        </Container>
+        )
     }
     return (
         <Container>
@@ -87,7 +95,7 @@ export const Deployer = () => {
                 <GreenButton onClick={handleContractSet}>Load from contract address</GreenButton>
                 <hr></hr>
                 <h3>Deploy a new contract .</h3>
-                <p>Deploying a new contract will give you a contract address, this will be stored in your local storage. !! COPY THIS ADDRESS AND STORE IT SOMEWHERE SAFE !!</p>
+                <p>Deploying a new contract will give you a contract address, this will be stored in your local storage. !! COPY THIS ADDRESS AND STORE IT SOMEWHERE SAFE !!. There is no risk in someone getting it but losing it yourself is unfixable.</p>
                 <br></br>
                 <PrimaryButton onClick={deploy}>Deploy a new contract.</PrimaryButton>
                 {deployementState === 0 ? null : <Popup textstate={STATES[deployementState]}/>}

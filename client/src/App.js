@@ -1,6 +1,6 @@
 import React from "react";
 
-import { connectToWeb3 } from "./helpers/web3/web3Functions";
+import { intializeEthereumConnection } from "./helpers/web3/web3Functions";
 
 import { StoreContext } from "./context/store";
 
@@ -19,7 +19,7 @@ const App = () => {
   } = React.useContext(StoreContext);
 
   React.useEffect(() => {
-    connectToWeb3(setWeb3, setAccounts, setChainId, setContract)
+    intializeEthereumConnection(setWeb3, setAccounts, setChainId);
   }, [])
 
 
