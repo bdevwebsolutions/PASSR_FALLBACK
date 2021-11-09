@@ -9,16 +9,17 @@ export async function intializeEthereumConnection(setWeb3, setAccounts, setChain
   const provider = await detectEthereumProvider();
   if(provider) {
     //CHECK IF CURRENT PROVIDER IS ETHEREUM
-    console.log(provider);
     if(provider !== window.ethereum){
-      throw new Error('Multiple wallets detected cannot ensure a ethereum connection');
+      window.alert('Multiple wallets detected cannot ensure a ethereum connection');
     }
 
     //TODO CHANGE 80001 TO MATIC MAIN 137
     //CHECK IF CONNECTED TO MUMBAI TESTNET
+    const allowedChains = process.env.NODE_ENV === "development" ? [80001, 1] : [137, 1]
     const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-    if(parseInt(chainId, 16) !== 80001 && parseInt(chainId, 16) !== 1){
-      throw new Error('Connect to the mumbai testnet or ethereum mainnet');
+    if(parseInt(chainId, 16) !== allowedChains[0]){
+      window.alert('Connect to the matic network.');
+      return null;
     };
 
     //LISTEN FOR NETWORK CHANGES
@@ -45,7 +46,7 @@ export async function intializeEthereumConnection(setWeb3, setAccounts, setChain
       .then(res => handleAccountsChanged(res))
       .catch(err => {
         if(err.code === 4001) {
-          throw new Error('User refused the connection')
+          window.alert('User refused the connection')
         }
       })
 
@@ -53,13 +54,13 @@ export async function intializeEthereumConnection(setWeb3, setAccounts, setChain
       .request({ method: 'eth_accounts' })
       .then(res => handleAccountsChanged(res))
       .catch((err) => {
-        throw new Error('Ethereum could not get accounts')
+        window.alert('Ethereum could not get accounts')
       });
 
     window.ethereum.on('accountsChanged', (res) => handleAccountsChanged(res));
     
   } else {
-    console.log('INSTALL METAMASK')
+    console.warn('Install Metamask');
   }
 }
 
@@ -80,7 +81,7 @@ export const deployPasswordContract = async (accounts, web3, setDeployementState
   //CALCULATE GASAMOUNT
   let GASAMOUNT = await BUILD_CONTRACT.estimateGas({}, (error, gasAmount) => {
     if(error){
-        throw new Error('An error occured while estimating the gas cost')
+        window.alert('An error occured while estimating the gas cost')
     }
     return gasAmount;
   })
@@ -99,8 +100,6 @@ export const deployPasswordContract = async (accounts, web3, setDeployementState
   }).then(async (newContractInstance) => {
     return newContractInstance
   })
-  console.log(DEPLOYED_CONTRACT._address)
-
   setDeployementState(0)
 
   return DEPLOYED_CONTRACT._address;

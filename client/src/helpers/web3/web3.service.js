@@ -1,5 +1,4 @@
 import { AES } from 'crypto-js';
-import styled from 'styled-components';
 import PasswordVaultContract from '../../contracts/PasswordVault.json';
 
 const createContract = (web3, contract) => {
@@ -13,40 +12,53 @@ export const getPasswords = async (accounts, web3, contract, setLoadingState) =>
         try {
             const data = await CONTRACT.methods.getCompleteVault().call({from: accounts[0]})
             setLoadingState(false);
-            return data;
+            const filterLocations = data[1].filter(el => { return el.length > 0 ? true : false});
+            const filterHashes = data[0].filter(el => { return el.length > 0 ? true : false});
+            return [filterHashes, filterLocations];
         } catch (error) {
-            throw new Error(error.message);
+            setLoadingState(false);
+            window.alert(error.message);
         }
-        setLoadingState(false);
     }
-    throw new Error("Web3 is not defined");
+    window.alert("Web3 is not defined");
 
 }
 
 export const addToVault = async (accounts, web3, contract, domain, pass, master, setLoadingState) => {
     if(web3 !== undefined){
-        setLoadingState(true);
+        setLoadingState(2);
         const CONTRACT = createContract(web3, contract);
         try {
             const ENCRYPTED = AES.encrypt(pass.toString(), master.toString()).toString()
-            await CONTRACT.methods.addToVault(domain, ENCRYPTED).send({from: accounts[0]})
-            setLoadingState(false);
+            await CONTRACT.methods.addToVault(domain, ENCRYPTED).send({from: accounts[0]});
+            setLoadingState(3);
         } catch (error) {
-            throw new Error(error.message)
+            setLoadingState(4);
         }
     }
-    throw new Error('Can not add password to vault');
 }
 
 export const removeFromVault = async (accounts, web3, contract, domain, setLoadingState) => {
     if(web3 !== undefined) {
-        setLoadingState(true)
+        setLoadingState(1)
         const CONTRACT = createContract(web3, contract);
         try {
-            await CONTRACT.methods.removeFromVault('netlog').send({from: accounts[0].toString()});
-            setLoadingState(false);
+            await CONTRACT.methods.removeFromVault(domain).send({from: accounts[0].toString()});
+            setLoadingState(2);
         } catch (error) {
-            throw new Error(error.message)
+            setLoadingState(0)
+        }
+    }
+}
+
+export const getUsageCounter = async (accounts, web3, contract) => {
+    if(web3 !== undefined) {
+        const CONTRACT = createContract(web3, contract);
+        try {
+            const data = await CONTRACT.methods.getUsageCount().call({from: accounts[0]});
+            return data;
+        } catch (error) {
+            window.alert(error.message);
         }
     }
 }
