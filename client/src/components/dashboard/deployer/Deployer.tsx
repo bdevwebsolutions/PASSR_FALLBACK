@@ -46,6 +46,8 @@ export const Deployer = () => {
         <p>this can take a while...</p>
     ]
 
+    const allowedChains = process.env.NODE_ENV === "development" ? 80001 : 137;
+
 
     //GET CONTRACT RELATED TO THE ADDRESS
     React.useEffect(() => {
@@ -57,7 +59,7 @@ export const Deployer = () => {
     //DEPLOYS A NEW CONTRACT WHEN ON THE RIGHT CHAIN
     
     const deploy = async () => {
-        if(chainId !== 80001 && chainId !== 1){
+        if(chainId !== allowedChains){
             alert('NOT CONNECTED TO THE RIGHT CHAIN')
         } else {
             const ADDRESS = await deployPasswordContract(accounts, web3, setDeployementState).catch(() => {
@@ -80,11 +82,11 @@ export const Deployer = () => {
 
 
     //TODO CHANGE TO 137 IN PROD
-    if(chainId !== 80001 && chainId !== 1){
+    if(chainId !== allowedChains){
         return (
         <Container>
             <div>
-                <h3>CONNECT TO THE MUMBAI TESTCHAIN</h3>
+                <h3>CONNECT TO THE MATIC NETWORK</h3>
             </div>
         </Container>
         )
