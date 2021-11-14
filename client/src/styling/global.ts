@@ -126,3 +126,14 @@ export const RedButton = styled(Button)`
     background-color: ${theme.dark};
     color: ${theme.red};
 `
+export const TextContainer = styled.div`
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: scroll;
+    margin: 40px auto;
+    padding: 25px;
+
+    p{
+        line-height: 24px;
+    }
+`

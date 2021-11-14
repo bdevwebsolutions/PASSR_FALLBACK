@@ -14,9 +14,9 @@ import {Router} from '@reach/router';
 import { Nav } from "../components/nav/Nav";
 //ROUTES
 const Home = React.lazy(() => import('../components/Home'));
-const About = React.lazy(() => import('../components/about/About'));
-const Contract = React.lazy(() => import('../components/contract/Contract'));
-const Airdrop = React.lazy(() => import('../components/airdrop/Airdrop'));
+const About = React.lazy(() => import('./About'));
+const Contract = React.lazy(() => import('./Contract'));
+const Airdrop = React.lazy(() => import('./Airdrop'));
 
 
 const Dashboard = () => {

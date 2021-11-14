@@ -5,42 +5,58 @@ import {FaCoins, FaFileContract} from 'react-icons/fa';
 
 //Styles
 import { Container } from './styles';
+import { theme } from '../../styling/global';
 
 export const Nav: React.FC = () => {
 
-    const open = true;
-
     return(
-        //@ts-ignore
-        <Container open={open}>
+        <Container>
             <h1>PASSR_.</h1>
-            <Link to="/">
+            <Navlink to="/">
                 <AiFillHome/>
-                {open ? "Home" : null}
-            </Link>
-            <Link to="/about">
+                Home 
+            </Navlink>
+            <Navlink to="/about">
                 <AiFillRead/>
-                {open ? "About" : null}
-            </Link>
-            <Link to='/contract'>
+                About 
+            </Navlink>
+            <Navlink to='/contract'>
                 <FaFileContract/>
-                {open ? "Contract" : null }
-            </Link>
-            <Link to="/airdrop">
+                Contract
+            </Navlink>
+            {/*
+            <Navlink to="/airdrop">
                 <AiFillCloud/>
-                {open ? "Airdrop" : null }
-            </Link>
-            <Link to="/governance">
-                {open ? "Governance" : null}
-            </Link>
+                Airdrop
+            </Navlink>
+            <Navlink to="/governance">
+                Governance 
+            </Navlink>
+            */}
             <div></div>
-            <Link to="/token">
+            <Navlink to="/token">
                 <FaCoins/>
-                {open ? "PASSR" : null}
-            </Link>
+                PASSR
+            </Navlink>
         </Container>
     )
 }
+
+// @ts-ignore
+const Navlink = (props) => (
+    <Link
+     {...props}
+     getProps={({isCurrent}) => {
+         return {
+             style: {
+                 backgroundColor: isCurrent ? theme.green : theme.dark,
+                 color: isCurrent ? theme.dark : theme.lightgrey,
+                 fontWeight: isCurrent ? "bold" : "normal",
+             }
+         }
+     }}
+    />
+);
 
 
 
