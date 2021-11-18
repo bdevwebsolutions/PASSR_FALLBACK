@@ -12,6 +12,13 @@ export const Master = () => {
         setMaster(value)
     }
 
+    const handleRedirect = () => {
+       const route = process.env.NODE_ENV === "development" 
+        ? `https://mumbai.polygonscan.com/address/${contract}` 
+        : `https://polygonscan.com/address/${contract}`;
+        window.open(route, '_blank');
+    }
+
     return (
         <Container>
             <div>
@@ -19,7 +26,7 @@ export const Master = () => {
                 <input placeholder={master.replaceAll(/./g,"*")} type="password" onChange={(e) => {handleInput(e.target.value)}}/>
             </div>
             <div>
-                <h3>Contract.</h3>
+                <h3 onClick={() => handleRedirect()}>Contract. (view on etherscan)</h3>
                 {/*  @ts-ignore */}
                 <p onClick={() => setVisibleContract(!visibleContract)}>{visibleContract ? contract : contract.replace(/./g, "*")}</p>
             </div>
@@ -40,6 +47,7 @@ const Container = styled.div`
         display: block;
         font-size: 16px;
         font-weight: bold;
+        cursor: pointer;
     }
     
     *{

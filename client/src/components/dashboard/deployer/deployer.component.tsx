@@ -30,6 +30,9 @@ import { PrimaryButton, GreenButton } from '../../../styling/global';
 //Popup
 import {Popup} from '../../popup/Popup';
 
+//UTIL
+import isValidAddress from './deployer.util';
+
 
 export const Component = () => {
 
@@ -42,6 +45,9 @@ export const Component = () => {
     //GET CONTRACT RELATED TO THE ADDRESS
     React.useEffect(() => {
         STORE.setAddress(fetchContractFromLocalStorage(accounts))
+        if(isValidAddress(fetchContractFromLocalStorage(accounts))){
+            STORE.setIsValidAddress(true);
+        };
     }, [])
     
     const deploy = async () => {
@@ -49,13 +55,25 @@ export const Component = () => {
             alert('NOT CONNECTED TO THE RIGHT CHAIN')
         } else {
             const ADDRESS = await deployPasswordContract(accounts, web3, STORE.setDeployementState).catch(() => {
-                STORE.setDeployementState(0)
+                STORE.setDeployementState(0);
             })
             if(ADDRESS !== undefined){
                 STORE.setAddress(ADDRESS)
                 localStorage.setItem(accounts[0], ADDRESS)
+                STORE.setIsValidAddress(true);
             }
         }
+    }
+
+    //HANDLE CONTRACT CHANGE
+    const handleContractChange = (newAddress: string) => {
+        console.log(isValidAddress(newAddress));
+        if(isValidAddress(newAddress)){
+            STORE.setAddress(newAddress)
+            STORE.setIsValidAddress(true);
+        } else {
+            STORE.setIsValidAddress(false)
+        };
     }
     
     //HANDLE CONTRACT SET
@@ -86,14 +104,24 @@ export const Component = () => {
                     <h3>Already deployed a contract ?</h3>
                     <p><b>Great!</b></p>
                     <p>Load from contract address.</p>
-                    <input type="text"  defaultValue={STORE.address} placeholder={STORE.address} onChange={e => STORE.setAddress(e.target.value)}/>
-                    <GreenButton onClick={handleContractSet}>Load from contract address</GreenButton>
+                    <input 
+                        type="text"  
+                        defaultValue={STORE.address} 
+                        placeholder={STORE.address} 
+                        onChange={e => handleContractChange(e.target.value)}
+                    />
+                    <GreenButton 
+                        disabled={!STORE.isValidAddress} 
+                        onClick={handleContractSet}
+                    >{STORE.isValidAddress ? "Load from contract address" : "Invalid contract address"}</GreenButton>
                 </div>
                 <div>
                     <h3>Deploy a new contract .</h3>
                     <p>Deploying a new contract will give you a contract address, this will be stored in your local storage. <br></br><br></br><b>!! COPY THIS ADDRESS AND STORE IT SOMEWHERE SAFE !! </b><br></br> There is no risk in someone obtaining it, but losing it yourself will make you lose all access to your passwords.</p>
                     <br></br>
-                    <PrimaryButton onClick={deploy}>Deploy a new contract.</PrimaryButton>
+                    <PrimaryButton 
+                        onClick={deploy}
+                    >Deploy a new contract.</PrimaryButton>
                     {STORE.deployementState === 0 ? null : <Popup>{STORE.PopupState[STORE.deployementState]}</Popup>}
                 </div>
             </Grid>

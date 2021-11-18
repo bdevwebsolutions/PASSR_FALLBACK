@@ -71,7 +71,7 @@ export const Details: React.FC = () => {
                         <PrimaryButton onClick={() => setVisiblePass(!visiblePass)}>{visiblePass ? "HIDE" : "SHOW"}</PrimaryButton>
                         <PrimaryButton onClick={() => window.navigator.clipboard.writeText(decodedPassword)}>COPY</PrimaryButton>
                     </Sub>
-                    <GreenButton onClick={isEncrypted ? decrypt : encrypt}>{isEncrypted ? 'Decrypt' : 'Hide Encrypted'}</GreenButton>
+                    <GreenButton onClick={isEncrypted ? decrypt : encrypt}>{isEncrypted ? 'Decrypt' : 'Hide Derypted'}</GreenButton>
                     <RedButton onClick={handleRemove}>Remove From Vault</RedButton>
                     <p>{message}</p>
                 </div>
