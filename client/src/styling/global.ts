@@ -135,6 +135,7 @@ export const IconButton = styled.button`
     height: auto;
     max-height: 30px;
     background-color: ${theme.dark};
+    padding: 0px !important;
 
     svg{
         margin: 0;

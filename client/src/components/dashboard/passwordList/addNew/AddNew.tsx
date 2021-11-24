@@ -31,7 +31,7 @@ export const AddNew: React.FC = () => {
     return (
         <>
             <IconButton disabled={master.length === 0} onClick={handleNew}>
-                    <GrAdd size={30}/>
+                    <GrAdd size={35} style={{paddingTop: 0}}/>
             </IconButton>
             {deployementState === 0 ? null : <Popup>{STATES[deployementState]}</Popup>}
         </>

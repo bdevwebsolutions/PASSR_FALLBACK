@@ -1,9 +1,10 @@
 import React from 'react'
 import { StoreContext } from '../../../context/store'
 import styled from 'styled-components';
-import { GreenButton, IconButton } from '../../../styling/global';
+import { IconButton } from '../../../styling/global';
 import { AddNew } from '../passwordList/addNew/AddNew';
 import {GrDomain} from 'react-icons/gr'
+
 
 
 export const Master = () => {
@@ -26,7 +27,7 @@ export const Master = () => {
         <Container>
             <div className='controller'>
                 <input placeholder="Master Password" type="password" onChange={(e) => {handleInput(e.target.value)}}/>
-                <IconButton disabled={master.length === 0} onClick={() => decryptLocations()}><GrDomain size={30}/></IconButton>
+                <IconButton disabled={master.length === 0} onClick={() => decryptLocations()}><GrDomain size={35} style={{paddingTop: 0}}/></IconButton>
                 <AddNew/>
             </div>
             <div>
@@ -34,6 +35,7 @@ export const Master = () => {
                 {/*  @ts-ignore */}
                 <p onClick={() => setVisibleContract(!visibleContract)}>{visibleContract ? contract : contract.replace(/./g, "*")}</p>
             </div>
+
         </Container>
     )
 }

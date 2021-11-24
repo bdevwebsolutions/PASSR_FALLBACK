@@ -7,10 +7,6 @@
     A Dispatcher for the global address for the smart contract that is in use
     A Test interaction - WORKING
 
-    //TODO
-    CHANGE CHAIN ID TO "137" WHEN IN PRODUCTION
-    Create a wrong-chain component and a save to db component
-
 */
 
 import React from 'react'
@@ -67,7 +63,6 @@ export const Component = () => {
 
     //HANDLE CONTRACT CHANGE
     const handleContractChange = (newAddress: string) => {
-        console.log(isValidAddress(newAddress));
         if(isValidAddress(newAddress)){
             STORE.setAddress(newAddress)
             STORE.setIsValidAddress(true);
@@ -84,7 +79,6 @@ export const Component = () => {
     }
 
 
-    //TODO CHANGE TO 137 IN PROD
     if(chainId !== STORE.allowedChains){
         return (
         <Container>

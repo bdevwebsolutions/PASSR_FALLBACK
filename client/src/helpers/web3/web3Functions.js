@@ -12,9 +12,6 @@ export async function intializeEthereumConnection(setWeb3, setAccounts, setChain
     if(provider !== window.ethereum){
       window.alert('Multiple wallets detected cannot ensure a ethereum connection');
     }
-
-    //TODO CHANGE 80001 TO MATIC MAIN 137
-    //CHECK IF CONNECTED TO MUMBAI TESTNET
     const allowedChains = process.env.NODE_ENV === "development" ? [80001, 1] : [137, 1]
     const chainId = await window.ethereum.request({ method: 'eth_chainId' });
     if(parseInt(chainId, 16) !== allowedChains[0]){

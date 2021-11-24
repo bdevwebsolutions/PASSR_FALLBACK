@@ -12,6 +12,7 @@ export const PopupForm: React.FC<{setDeployementState: React.Dispatch<number>}> 
     const [key, setKey] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("")
     const [passwordCopy, setPasswordCopy] = React.useState<string>("");
+    const [credential, setCredential] = React.useState<string>("");
     const [warning, setWarning] = React.useState<string>("")
 
     const handleMaster = (value: string) => {
@@ -39,7 +40,7 @@ export const PopupForm: React.FC<{setDeployementState: React.Dispatch<number>}> 
     }
     
     const handleDeploy = () => {
-        addPasswordToContract(setDeployementState, key, password);
+        addPasswordToContract(setDeployementState, key, password, credential);
     }
 
     return (
@@ -54,6 +55,8 @@ export const PopupForm: React.FC<{setDeployementState: React.Dispatch<number>}> 
                     <>
                         <p>Key</p>
                         <input onChange={e => handleKey(e.target.value)} type="text" placeholder="url / title ..." value={key}/>
+                        <p>Username / email</p>
+                        <input onChange={e => setCredential(e.target.value)} type="text" placeholder="username / email ..." value={credential}></input>
                         <p>Password</p>
                         <input onChange={e => handlePass(e.target.value)} value={password} type="password" placeholder='password'/>
                         <p>Repeat Password</p>

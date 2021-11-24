@@ -13,6 +13,7 @@ export const Details: React.FC = () => {
     const [message, setMessage] = React.useState("")
     const [visiblePass, setVisiblePass] = React.useState(false);
     const [decodedPassword, setDecodedPassword] = React.useState("");
+    const [decodedCredentials, setDecodedCredentials] = React.useState("")
     const [isEncrypted, setisEncrpyted] = React.useState(true);
     const [removeState, setRemoveState] = React.useState<number>(0)
     const STATES = [null, <p>Removing...</p>, <p>Succes...</p>];
@@ -28,15 +29,19 @@ export const Details: React.FC = () => {
         setMessage("")
         const decrypted = AES.decrypt(focusPassword[1].toString(), master.toString());
         const decode = decrypted.toString(enc.Utf8);
+        const decryptedCred = AES.decrypt(focusPassword[2].toString(), master.toString());
+        const decodeCred = decryptedCred.toString(enc.Utf8);
         if(decode.length === 0){
             return null;
         }
+        setDecodedCredentials(decodeCred);
         setDecodedPassword(decode);
         setisEncrpyted(false);
     }
 
     const encrypt = () => {
         setDecodedPassword(focusPassword[1]);
+        setDecodedCredentials(focusPassword[2]);
         setisEncrpyted(true);
         setVisiblePass(false);
     }
@@ -48,6 +53,7 @@ export const Details: React.FC = () => {
     React.useEffect(() => {
         setMessage("");
         setDecodedPassword(focusPassword[1])
+        setDecodedCredentials(focusPassword[2]);
         setisEncrpyted(true);
         setVisiblePass(false);
     }, [focusPassword])
@@ -65,7 +71,9 @@ export const Details: React.FC = () => {
         <>
             <Container>
                 <div>
-                    <h3>{focusPassword[0].toUpperCase()}</h3>
+                    <p>Username</p>
+                    <input type="text" placeholder={visiblePass ? decodedCredentials : decodedCredentials.replace(/./g, "*")} readOnly={true} />
+                    <p>Password</p>
                     <input type="text" placeholder={visiblePass ? decodedPassword : decodedPassword.replace(/./g, "*")} readOnly={true} />
                     <Sub>
                         <PrimaryButton onClick={() => setVisiblePass(!visiblePass)}>{visiblePass ? "HIDE" : "SHOW"}</PrimaryButton>
@@ -91,6 +99,11 @@ const Container = styled.div`
     div{
         width: 450px;
         text-align: center;
+
+        p{
+            text-align: left;
+            font-weight: bold;
+        }
     }
 
     *{

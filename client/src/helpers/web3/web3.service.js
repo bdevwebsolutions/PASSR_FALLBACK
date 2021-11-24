@@ -12,9 +12,10 @@ export const getPasswords = async (accounts, web3, contract, setLoadingState) =>
         try {
             const data = await CONTRACT.methods.getCompleteVault().call({from: accounts[0]})
             setLoadingState(false);
+            const filterCredentials = data[2].filter(el => { return el.length > 0 ? true: false});
             const filterLocations = data[1].filter(el => { return el.length > 0 ? true : false});
             const filterHashes = data[0].filter(el => { return el.length > 0 ? true : false});
-            return [filterHashes, filterLocations];
+            return [filterHashes, filterLocations, filterCredentials];
         } catch (error) {
             setLoadingState(false);
             window.alert(error.message);
@@ -24,14 +25,15 @@ export const getPasswords = async (accounts, web3, contract, setLoadingState) =>
 
 }
 
-export const addToVault = async (accounts, web3, contract, domain, pass, master, setLoadingState) => {
+export const addToVault = async (accounts, web3, contract, domain, pass, credential, master, setLoadingState) => {
     if(web3 !== undefined){
         setLoadingState(2);
         const CONTRACT = createContract(web3, contract);
         try {
             const ENCRYPTED_PASS = AES.encrypt(pass.toString(), master.toString()).toString();
             const ENCRYPTED_DOMAIN = AES.encrypt(domain.toString(), master.toString()).toString();
-            await CONTRACT.methods.addToVault(ENCRYPTED_DOMAIN, ENCRYPTED_PASS).send({from: accounts[0]});
+            const ENCRYPTED_CRED = AES.encrypt(credential.toString(), master.toString()).toString();
+            await CONTRACT.methods.addToVault(ENCRYPTED_DOMAIN, ENCRYPTED_PASS, ENCRYPTED_CRED).send({from: accounts[0]});
             setLoadingState(3);
         } catch (error) {
             setLoadingState(4);

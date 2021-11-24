@@ -9,7 +9,7 @@ import { LoadingContainer, Container } from './styles';
 export const PasswordList: React.FC = () => {
 
 
-    const {passwordList, focusPassword, setFocusPassword, getPasswordsFromContract} = React.useContext(StoreContext);
+    const {passwordList, focusPassword, setFocusPassword, getPasswordsFromContract, locationsAreEncrypted, locationsCopy} = React.useContext(StoreContext);
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
     React.useEffect(() => {
@@ -24,7 +24,7 @@ export const PasswordList: React.FC = () => {
     }
     return (
         <Container>
-            <List passwords={passwordList} focus={focusPassword} setFocus={setFocusPassword} />
+            <List passwords={passwordList} focus={focusPassword} setFocus={setFocusPassword} isEncrypted={locationsAreEncrypted} copy={locationsCopy}/>
         </Container>
     )
 }

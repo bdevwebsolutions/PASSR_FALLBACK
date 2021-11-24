@@ -5,7 +5,7 @@ export type TPasswordList = Array<string[]>;
 
 export type TGetPasswordsFromContract = (setLoading: React.Dispatch<boolean>) => void;
 
-export type TAddPasswordToContract = (setLoading: React.Dispatch<number>, domain: string, pass: string) => void;
+export type TAddPasswordToContract = (setLoading: React.Dispatch<number>, domain: string, pass: string, credential: string) => void;
 
 export type TRemovePasswordFromContract = (setLoading: React.Dispatch<number>, domain: string) => void;
 
@@ -26,6 +26,8 @@ export interface IStoreContext {
   setPasswordList: React.Dispatch<TPasswordList>,
   focusPassword: string[];
   setFocusPassword: React.Dispatch<string[]>,
+  locationsCopy: string[],
+  locationsAreEncrypted: boolean,
   getPasswordsFromContract: TGetPasswordsFromContract,
   addPasswordToContract: TAddPasswordToContract,
   removeFromContract: TRemovePasswordFromContract,

@@ -12,9 +12,10 @@ const StoreProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const [contract, setContract] = React.useState(null);
   const [chainId, setChainId] = React.useState<number>(0);
   const [master, setMaster] = React.useState("");
-  const [passwordList, setPasswordList] = React.useState([[""], [""]]);
-  const [focusPassword, setFocusPassword] = React.useState(["",""]);
+  const [passwordList, setPasswordList] = React.useState([[""], [""], [""]]);
+  const [focusPassword, setFocusPassword] = React.useState(["", "", ""]);
   const [locationsAreEncrypted, setLocationsAreEncrypted] = React.useState(true);
+  const [locationsCopy, setLocationsCopy] = React.useState([""]);
 
   const getPasswordsFromContract: TGetPasswordsFromContract = async (setLoading) => {
     //@ts-ignore
@@ -22,8 +23,8 @@ const StoreProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     setLocationsAreEncrypted(true);
   }
   
-  const addPasswordToContract: TAddPasswordToContract = async (setDeployementState, domain, pass) => {
-    await addToVault(accounts, web3, contract, domain, pass, master, setDeployementState);
+  const addPasswordToContract: TAddPasswordToContract = async (setDeployementState, domain, pass, credential) => {
+    await addToVault(accounts, web3, contract, domain, pass, credential, master, setDeployementState);
     getPasswordsFromContract(() => {});
     setDeployementState(3);
   }
@@ -37,11 +38,11 @@ const StoreProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const decryptLocations: TDecryptLocations = () => {
     if(locationsAreEncrypted) {
       const decryptedList = passwordList[1].map(loc => AES.decrypt(loc.toString(), master.toString()).toString(enc.Utf8));
-      //TODO IF WRONG MASTER IS USED IT GIVES ERROR WHEN DECRYPT
-      setPasswordList(old => [old[0], decryptedList]);
+      const filterdDecrypted = decryptedList.filter(el => el.length === 0 ? false : true)
+      setLocationsCopy(filterdDecrypted);
       setLocationsAreEncrypted(false);
     } else {
-      getPasswordsFromContract(() => {});
+      setLocationsAreEncrypted(true);
     }
 
   }
@@ -57,7 +58,9 @@ const StoreProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     getPasswordsFromContract,
     addPasswordToContract,
     removeFromContract,
-    decryptLocations
+    decryptLocations,
+    locationsCopy,
+    locationsAreEncrypted
   }
 
 

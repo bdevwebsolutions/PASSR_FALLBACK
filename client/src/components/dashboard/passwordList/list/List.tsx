@@ -6,27 +6,30 @@ export const List: React.FC<
     {
         passwords: TPasswordList, 
         focus: string[], 
-        setFocus: React.Dispatch<string[]>
+        setFocus: React.Dispatch<string[]>,
+        isEncrypted: boolean,
+        copy: string[],
     }
-    > = ({passwords, focus, setFocus}) => {
+    > = ({passwords, focus, setFocus, isEncrypted, copy}) => {
 
-    const changeFocus = (name: string, pass: string) => {
-        setFocus([name, pass]);
+    const changeFocus = (name: string, pass: string, cred: string) => {
+        setFocus([name, pass, cred]);
     }
 
     React.useEffect(() => {
-        setFocus(["", ""])
-        console.log(passwords)
+        setFocus(["", "", ""])
     }, [passwords, setFocus])
-
+    
     return (
         <Container>
             {passwords && passwords.length > 0 
                 ? passwords[1].map((el, id) => 
-                    (
-                        <ListItem isFocus={el === focus[0]} onClick={() => changeFocus(el, passwords[0][id])} key={id}>
-                            {el.toLocaleUpperCase()}
-                        </ListItem>
+                    (   !isEncrypted && !copy[id] 
+                        ? null 
+                        : 
+                            <ListItem isFocus={el === focus[0]} onClick={() => changeFocus(el, passwords[0][id], passwords[2][id])} key={id}>
+                                {isEncrypted ? el.toLocaleUpperCase() : copy[id].toLocaleUpperCase()}
+                            </ListItem>
                     )) 
                 : null
             }
