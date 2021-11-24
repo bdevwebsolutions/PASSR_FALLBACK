@@ -43,6 +43,7 @@ const StoreProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
       setLocationsAreEncrypted(false);
     } else {
       setLocationsAreEncrypted(true);
+      setFocusPassword(["", "", ""]);
     }
 
   }

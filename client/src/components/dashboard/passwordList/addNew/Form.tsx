@@ -15,6 +15,15 @@ export const PopupForm: React.FC<{setDeployementState: React.Dispatch<number>}> 
     const [credential, setCredential] = React.useState<string>("");
     const [warning, setWarning] = React.useState<string>("")
 
+    React.useEffect(() => {
+        setIsMasterCorrect(false);
+        setIsKeyUnique(false);
+        setKey("")
+        setPassword("");
+        setCredential("");
+        setWarning("");
+    }, [])
+
     const handleMaster = (value: string) => {
         master === value && master.length > 0 ? setIsMasterCorrect(true) : setIsMasterCorrect(false);
     }
@@ -74,7 +83,7 @@ export const PopupForm: React.FC<{setDeployementState: React.Dispatch<number>}> 
 
 export const SucceedForm: React.FC<{setDeployementState: React.Dispatch<number>}> = ({setDeployementState}) => {
 
-    window.setInterval(() => {
+    window.setTimeout(() => {
         setDeployementState(0)
     }, 1500)
 

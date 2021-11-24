@@ -21,7 +21,7 @@ export const AddNew: React.FC = () => {
             <FailedForm/>
         ];
 
-    const handleNew = async () => {
+    const handleNew = () => {
         if(master.length === 0){
             return null;
         } 

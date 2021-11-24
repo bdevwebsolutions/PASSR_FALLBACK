@@ -72,7 +72,7 @@ export const Details: React.FC = () => {
             <Container>
                 <div>
                     <p>Username</p>
-                    <input type="text" placeholder={visiblePass ? decodedCredentials : decodedCredentials.replace(/./g, "*")} readOnly={true} />
+                    <input type="text" placeholder={decodedCredentials} readOnly={true} />
                     <p>Password</p>
                     <input type="text" placeholder={visiblePass ? decodedPassword : decodedPassword.replace(/./g, "*")} readOnly={true} />
                     <Sub>
