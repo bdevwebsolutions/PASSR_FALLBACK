@@ -9,6 +9,8 @@ export type TAddPasswordToContract = (setLoading: React.Dispatch<number>, domain
 
 export type TRemovePasswordFromContract = (setLoading: React.Dispatch<number>, domain: string) => void;
 
+export type TDecryptLocations = () => void;
+
 export interface IStoreContext {
   web3: Web3 | null,
   setWeb3: React.Dispatch<Web3> | React.Dispatch<null>,
@@ -27,4 +29,5 @@ export interface IStoreContext {
   getPasswordsFromContract: TGetPasswordsFromContract,
   addPasswordToContract: TAddPasswordToContract,
   removeFromContract: TRemovePasswordFromContract,
+  decryptLocations: TDecryptLocations
 }

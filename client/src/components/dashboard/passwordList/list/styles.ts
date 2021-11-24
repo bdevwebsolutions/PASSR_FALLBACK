@@ -16,10 +16,10 @@ export const ListItem = styled.div<{isFocus: boolean}>`
     padding-left: 15px;
     border-bottom: solid 1px ${props => props.theme.grey};
     cursor: pointer;
-    color: ${props => props.isFocus ? props.theme.grey : null};
+    color: ${props => props.isFocus ? props.theme.grey : props.theme.white} !important;
     font-weight: ${props => props.isFocus ? "bold" : "normal"};
-    background-color: ${props => props.isFocus ? props.theme.green : null};
-
+    background-color: ${props => props.isFocus ? props.theme.green : props.theme.dark} !important;
+    overflow: hidden;
     :hover{
         background-color: ${props => props.theme.green};
         color: ${props => props.theme.grey};

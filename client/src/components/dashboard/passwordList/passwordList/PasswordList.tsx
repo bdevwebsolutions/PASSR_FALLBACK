@@ -25,7 +25,6 @@ export const PasswordList: React.FC = () => {
     return (
         <Container>
             <List passwords={passwordList} focus={focusPassword} setFocus={setFocusPassword} />
-            <AddNew/>
         </Container>
     )
 }

@@ -15,6 +15,7 @@ export const StyledPopup = styled.div`
     align-items: center;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
+    border: solid 1px ${props => props.theme.grey};
 `
 
 export const Container = styled.div`

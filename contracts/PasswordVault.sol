@@ -19,6 +19,7 @@ contract PasswordVault is Ownable{
   struct Vault{
     string[] passwords;
     string[] locations;
+    string[] credentials;
   }
   /** 
     param usageCounter: uint;
@@ -48,6 +49,7 @@ contract PasswordVault is Ownable{
   */
   string[] private passwords;
   string[] private locations;
+  string[] private credentials;
 
   // modifier to ensure the locations array is never negative;
   modifier nonNegativeLocation {
@@ -86,7 +88,7 @@ contract PasswordVault is Ownable{
     returns true;
 
   */
-  function addToVault(string memory _location, string memory _hashed) public onlyOwner returns(bool){
+  function addToVault(string memory _location, string memory _hashed, string memory _credential) public onlyOwner returns(bool){
     require(bytes(_location).length > 0, "Empty _location string not allowed");
     require(bytes(_hashed).length > 0, "Empty _hashed string not allowed");
     for(uint i = 0; i < locations.length; i++){
@@ -94,6 +96,7 @@ contract PasswordVault is Ownable{
     }
     passwords.push(_hashed);
     locations.push(_location);
+    credentials.push(_credential);
     usageCounter = usageCounter + 1;
     return true;
   }
@@ -105,7 +108,7 @@ contract PasswordVault is Ownable{
 
   */
   function getCompleteVault() public onlyOwner view returns(Vault memory){
-    return Vault(passwords, locations);
+    return Vault(passwords, locations, credentials);
   }
 
     /*
@@ -127,6 +130,7 @@ contract PasswordVault is Ownable{
         if(keccak256(bytes(locations[i])) == keccak256(bytes(_location))){
           delete locations[i];
           delete passwords[i];
+          delete credentials[i];
           i = locations.length;
         }
     }

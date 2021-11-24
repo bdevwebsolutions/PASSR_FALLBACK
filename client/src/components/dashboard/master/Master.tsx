@@ -1,11 +1,14 @@
 import React from 'react'
 import { StoreContext } from '../../../context/store'
 import styled from 'styled-components';
+import { GreenButton, IconButton } from '../../../styling/global';
+import { AddNew } from '../passwordList/addNew/AddNew';
+import {GrDomain} from 'react-icons/gr'
 
 
 export const Master = () => {
 
-    const {master, setMaster, contract} = React.useContext(StoreContext)
+    const {master, setMaster, contract, decryptLocations} = React.useContext(StoreContext)
     const [visibleContract, setVisibleContract] = React.useState(false)
 
     const handleInput = (value: string) => {
@@ -21,12 +24,13 @@ export const Master = () => {
 
     return (
         <Container>
-            <div>
-                <h3>Master Password.</h3>
-                <input placeholder={master.replaceAll(/./g,"*")} type="password" onChange={(e) => {handleInput(e.target.value)}}/>
+            <div className='controller'>
+                <input placeholder="Master Password" type="password" onChange={(e) => {handleInput(e.target.value)}}/>
+                <IconButton disabled={master.length === 0} onClick={() => decryptLocations()}><GrDomain size={30}/></IconButton>
+                <AddNew/>
             </div>
             <div>
-                <h3 onClick={() => handleRedirect()}>Contract. (view on etherscan)</h3>
+                <h3 onClick={() => handleRedirect()}>Contract. (view on polygonscan)</h3>
                 {/*  @ts-ignore */}
                 <p onClick={() => setVisibleContract(!visibleContract)}>{visibleContract ? contract : contract.replace(/./g, "*")}</p>
             </div>
@@ -41,7 +45,7 @@ const Container = styled.div`
 
     display: grid;
     grid-template-columns: 1fr auto;
-    max-height: 100px;
+    height: auto;
 
     h3{
         display: block;
@@ -75,8 +79,8 @@ const Container = styled.div`
     button{
         display: inline; 
         width: auto;
-        padding: 5px 10px;
-        width: 210px;
+        width: 40px;
+        line-height: 40px;
     }
 
     input{
@@ -90,6 +94,10 @@ const Container = styled.div`
 
     div:nth-of-type(2){
         border-left: solid 1px ${props => props.theme.grey};
+    }
+    .controller{
+        display: flex;
+        align-items: center;
     }
 
 `

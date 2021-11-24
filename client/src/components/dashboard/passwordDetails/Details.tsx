@@ -107,6 +107,7 @@ const Container = styled.div`
 
     h3{
         font-weight: bold;
+        font-size: 14px;
     }
 `
 

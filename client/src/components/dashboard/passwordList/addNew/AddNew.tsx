@@ -1,8 +1,9 @@
 import React from 'react'
 import { StoreContext } from '../../../../context/store';
+import { GreenButton, IconButton } from '../../../../styling/global';
 import { Popup } from '../../../popup/Popup';
 import { PopupForm, FailedForm, SucceedForm, BusyForm } from './Form';
-import { Container } from './styles';
+import { GrAdd } from 'react-icons/gr';
 
 
 
@@ -29,9 +30,9 @@ export const AddNew: React.FC = () => {
 
     return (
         <>
-            <Container onClick={handleNew}>
-                    {master.length === 0 ? "Fill in a master to add a password" : "ADD NEW +"}
-            </Container>
+            <IconButton disabled={master.length === 0} onClick={handleNew}>
+                    <GrAdd size={30}/>
+            </IconButton>
             {deployementState === 0 ? null : <Popup>{STATES[deployementState]}</Popup>}
         </>
     )

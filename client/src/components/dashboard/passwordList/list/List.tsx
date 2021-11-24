@@ -14,6 +14,11 @@ export const List: React.FC<
         setFocus([name, pass]);
     }
 
+    React.useEffect(() => {
+        setFocus(["", ""])
+        console.log(passwords)
+    }, [passwords, setFocus])
+
     return (
         <Container>
             {passwords && passwords.length > 0 

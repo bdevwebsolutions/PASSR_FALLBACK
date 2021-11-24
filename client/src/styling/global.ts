@@ -77,6 +77,7 @@ export const GlobalStyle = createGlobalStyle`
         outline: none;
         color: ${theme.white};
         font-size: 14px;
+        width: 100%;
     }
 
     b{
@@ -125,6 +126,40 @@ export const GreenButton = styled(Button)`
 export const RedButton = styled(Button)`
     background-color: ${theme.dark};
     color: ${theme.red};
+`
+
+export const IconButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    max-height: 30px;
+    background-color: ${theme.dark};
+
+    svg{
+        margin: 0;
+        filter: invert(94%) sepia(10%) saturate(60%) hue-rotate(191deg) brightness(97%) contrast(98%);
+    };
+
+    :disabled {
+        svg{
+            filter: invert(25%) sepia(9%) saturate(449%) hue-rotate(155deg) brightness(91%) contrast(81%);
+            cursor: not-allowed;
+        }
+
+        :hover {
+            svg{
+                filter: invert(25%) sepia(9%) saturate(449%) hue-rotate(155deg) brightness(91%) contrast(81%);
+            };
+        }
+    }
+
+    :hover{
+        svg{
+            filter: invert(91%) sepia(9%) saturate(863%) hue-rotate(71deg) brightness(106%) contrast(101%);
+        }
+    }
+    line-height: 30px;
 `
 export const TextContainer = styled.div`
     max-width: 1200px;

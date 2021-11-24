@@ -20,7 +20,7 @@ export const Dashboard: React.FC = () => {
                 <Details/>
             </PasswordContent>
             <Disclaimer>
-                <p>VERSION: 0.0.1</p>
+                <p>BETA 1.0</p>
             </Disclaimer>
         </Container>
     )

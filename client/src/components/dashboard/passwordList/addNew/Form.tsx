@@ -1,3 +1,4 @@
+import { AES, enc } from 'crypto-js';
 import React from 'react'
 import styled from 'styled-components';
 import { StoreContext } from '../../../../context/store';
@@ -19,7 +20,7 @@ export const PopupForm: React.FC<{setDeployementState: React.Dispatch<number>}> 
 
     const handleKey = (value: string) => {
         setKey(value);
-        const psCopy = passwordList[1].map(el => el.toLocaleUpperCase());
+        const psCopy = passwordList[1].map(loc => AES.decrypt(loc.toString(), master.toString()).toString(enc.Utf8).toLocaleUpperCase());
         if(psCopy.includes(value.toLocaleUpperCase())){
             setIsKeyUnique(false);
             setWarning('No duplicate keys allowed');
@@ -84,11 +85,13 @@ const Container = styled.div`
     width: 400px;
     *{
         display: block;
+        width: 100% !important;
     }
 
-    display: grid;
+    display: grid !important;
     align-items: center;
     grid-gap: 8px;
+
 
     input{
         background-color: ${props => props.theme.grey};
@@ -99,6 +102,7 @@ const Container = styled.div`
         color: ${props => props.theme.white};
         font-size: 14px;
         padding: 8px 5px;
+        width: 100% !important;
     }
 
     input:last-of-type{
