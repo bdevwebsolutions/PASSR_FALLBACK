@@ -3,7 +3,6 @@ import { StoreContext } from '../../../context/store'
 import {AES, enc} from 'crypto-js';
 import styled from 'styled-components';
 import { GreenButton, RedButton, PrimaryButton } from '../../../styling/global';
-import { removeFromVault } from '../../../helpers/web3/web3.service';
 import { Popup } from '../../popup/Popup';
 
 

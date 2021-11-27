@@ -8,10 +8,10 @@ const NotConnected: React.FC = () => {
         <Container>
             <div>
                 <h1>PASSR_.</h1>
-                <p> Decentralized password managing.</p>
-                <p onClick={() => {window.location.reload()}}>Connect to metamask to continue.</p>
                 <br></br>
-                <sub>PS: use the matic chain, it's alot cheaper <span role="img">😉</span></sub>
+                <br></br>
+                <p> Decentralized password managing.</p>
+                <p onClick={() => {window.location.reload()}}>Connect metamask to the matic chain to continue.</p>
                 <br></br>
                 <sub>* refresh the page if connecting does not show the dashboard</sub>
             </div>
@@ -37,7 +37,7 @@ const Container = styled.div`
         display: inline-block;
         padding: 18px;
         margin-bottom: 5px;
-        padding: 5px;
+        padding: 8px 12px;
         
     }
 

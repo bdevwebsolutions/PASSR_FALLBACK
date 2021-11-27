@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Passwords = styled.div`
     border-right: solid 1px ${props => props.theme.grey};
-    width: 350px;
+    width: 400px;
 
     grid-column: 1/2;
     grid-row: 2/3;

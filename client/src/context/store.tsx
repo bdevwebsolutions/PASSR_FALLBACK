@@ -26,7 +26,6 @@ const StoreProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const addPasswordToContract: TAddPasswordToContract = async (setDeployementState, domain, pass, credential) => {
     await addToVault(accounts, web3, contract, domain, pass, credential, master, setDeployementState);
     getPasswordsFromContract(() => {});
-    setDeployementState(3);
   }
 
   const removeFromContract: TRemovePasswordFromContract = async (setRemoveState, domain) => {

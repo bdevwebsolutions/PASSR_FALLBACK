@@ -1,12 +1,11 @@
+import { RouteComponentProps } from '@reach/router';
 import React from 'react'
-import {StoreContext} from '../../../../context/store';
+import {StoreContext} from '../../../../../context/store';
 
-//COMPONENTS
-import {AddNew} from '../addNew/AddNew';
 import { List } from '../list/List';
-import { LoadingContainer, Container } from './styles';
+import { Container } from './styles';
 
-export const PasswordList: React.FC = () => {
+export const PasswordList: React.FC<RouteComponentProps> = () => {
 
 
     const {passwordList, focusPassword, setFocusPassword, getPasswordsFromContract, locationsAreEncrypted, locationsCopy} = React.useContext(StoreContext);
@@ -17,14 +16,13 @@ export const PasswordList: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setIsLoading])
 
-    if(isLoading) {
-        return (
-            <LoadingContainer><p>LOADING...</p></LoadingContainer>
-        )
-    }
     return (
         <Container>
-            <List passwords={passwordList} focus={focusPassword} setFocus={setFocusPassword} isEncrypted={locationsAreEncrypted} copy={locationsCopy}/>
+            <h4>Passwords</h4>
+            {isLoading 
+                ? <p>Loading...</p> 
+                : <List passwords={passwordList} focus={focusPassword} setFocus={setFocusPassword} isEncrypted={locationsAreEncrypted} copy={locationsCopy}/>
+            }
         </Container>
     )
 }
