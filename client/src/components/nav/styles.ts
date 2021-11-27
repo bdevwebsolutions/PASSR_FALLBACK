@@ -4,7 +4,7 @@ export const Container = styled.div`
     background-color: ${props => props.theme.dark};
     padding: 0px 0px;
     display: grid;
-    grid-template-rows: 60px repeat(3, auto) 1fr auto;
+    grid-template-rows: 60px repeat(1, auto) 1fr auto;
     width: 200px;
     overflow: hidden;
     border-right: solid 1px ${props => props.theme.grey};

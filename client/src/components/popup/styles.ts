@@ -24,4 +24,9 @@ export const Container = styled.div`
     background-color: ${props => props.theme.dark};
     font-weight: 600;
     color: ${props => props.theme.white};
+    p{
+        border: solid 1px red;
+        display: block;
+        padding: 15px;
+    }
 `

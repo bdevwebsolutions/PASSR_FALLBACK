@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from '@reach/router';
-import {AiFillHome, AiFillRead, AiFillCloud } from 'react-icons/ai'
-import {FaCoins, FaFileContract} from 'react-icons/fa'; 
+import {AiFillHome} from 'react-icons/ai'
+import {FaCoins} from 'react-icons/fa'; 
 
 //Styles
 import { Container } from './styles';
@@ -12,10 +12,11 @@ export const Nav: React.FC = () => {
     return(
         <Container>
             <h1>PASSR_.</h1>
-            <Navlink to="/">
+            <Navlink to="/dashboard">
                 <AiFillHome/>
-                Home 
+                Dashboard
             </Navlink>
+            {/*
             <Navlink to="/about">
                 <AiFillRead/>
                 About 
@@ -24,7 +25,7 @@ export const Nav: React.FC = () => {
                 <FaFileContract/>
                 Contract
             </Navlink>
-            {/*
+
             <Navlink to="/airdrop">
                 <AiFillCloud/>
                 Airdrop
@@ -46,12 +47,12 @@ export const Nav: React.FC = () => {
 const Navlink = (props) => (
     <Link
      {...props}
-     getProps={({isCurrent}) => {
+     getProps={({isPartiallyCurrent}) => {
          return {
              style: {
-                 backgroundColor: isCurrent ? theme.grey : theme.dark,
-                 color: isCurrent ? theme.green : theme.lightgrey,
-                 fontWeight: isCurrent ? "bold" : "normal",
+                 backgroundColor: isPartiallyCurrent ? theme.grey : theme.dark,
+                 color: isPartiallyCurrent ? theme.green : theme.lightgrey,
+                 fontWeight: isPartiallyCurrent ? "bold" : "normal",
              }
          }
      }}

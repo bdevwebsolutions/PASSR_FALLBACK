@@ -27,16 +27,16 @@ export const getPasswords = async (accounts, web3, contract, setLoadingState) =>
 
 export const addToVault = async (accounts, web3, contract, domain, pass, credential, master, setLoadingState) => {
     if(web3 !== undefined){
-        setLoadingState(2);
+        setLoadingState(1);
         const CONTRACT = createContract(web3, contract);
         try {
             const ENCRYPTED_PASS = AES.encrypt(pass.toString(), master.toString()).toString();
             const ENCRYPTED_DOMAIN = AES.encrypt(domain.toString(), master.toString()).toString();
             const ENCRYPTED_CRED = AES.encrypt(credential.toString(), master.toString()).toString();
             await CONTRACT.methods.addToVault(ENCRYPTED_DOMAIN, ENCRYPTED_PASS, ENCRYPTED_CRED).send({from: accounts[0]});
-            setLoadingState(3);
+            setLoadingState(2);
         } catch (error) {
-            setLoadingState(4);
+            setLoadingState(3);
         }
     }
 }

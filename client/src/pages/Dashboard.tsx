@@ -14,10 +14,6 @@ import {Router} from '@reach/router';
 import { Nav } from "../components/nav/Nav";
 //ROUTES
 const Home = React.lazy(() => import('../components/Home'));
-const About = React.lazy(() => import('./About'));
-const Contract = React.lazy(() => import('./Contract'));
-const Airdrop = React.lazy(() => import('./Airdrop'));
-
 
 const Dashboard = () => {
 
@@ -26,10 +22,7 @@ const Dashboard = () => {
             <Nav/>
             <React.Suspense fallback={<span>Loading</span>}>
                 <Router>
-                    <Home path="/"/>
-                    <About path="/about"/>
-                    <Contract path="/contract"/>
-                    <Airdrop path="/airdrop"/>
+                    <Home path="/dashboard/*"/>
                 </Router>
             </React.Suspense>
         </Container>
