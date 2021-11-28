@@ -3,11 +3,22 @@ import {StoreContext} from '../../../context/store';
 import styled from 'styled-components';
 import { MdOpenInNew } from 'react-icons/md';
 import { IconButton } from '../../../styling/global';
+import {BsQuestionCircle} from 'react-icons/bs';
+import { Tutorial } from '../../tutorial';
 
 export const TopBar: React.FC = () => {
 
     const {contract} = React.useContext(StoreContext)
-    const [visibleContract, setVisibleContract] = React.useState(false)
+    const [visibleContract, setVisibleContract] = React.useState(false);
+    const [showTutorial, setShowTutorial] = React.useState(false);
+
+    React.useEffect(() => {
+        const isNew = localStorage.getItem("INITIAL_SESSION");
+        console.log(isNew);
+        if(isNew !== "false") {
+            setShowTutorial(true);
+        }
+    }, [])
 
     const handleRedirect = () => {
         const route = process.env.NODE_ENV === "development" 
@@ -18,9 +29,17 @@ export const TopBar: React.FC = () => {
 
     return (
         <Container>
-            {/*  @ts-ignore */}
-            <p onClick={() => setVisibleContract(!visibleContract)}>{visibleContract ? contract : contract.replace(/./g, "*")}</p>
-            <IconButton onClick={() => handleRedirect()}><MdOpenInNew size={24} style={{marginTop: 0}}/></IconButton>
+            <div>
+                <IconButton onClick={() => setShowTutorial(!showTutorial)}>
+                    <BsQuestionCircle size={20} style={{marginTop: 10}}/>
+                </IconButton>
+            </div>
+            <div>
+                {/*  @ts-ignore */}
+                <p onClick={() => setVisibleContract(!visibleContract)}>{visibleContract ? contract : contract.replace(/./g, "*")}</p>
+                <IconButton onClick={() => handleRedirect()}><MdOpenInNew size={22} style={{marginTop: 0}}/></IconButton>
+            </div>
+            {showTutorial ? <Tutorial setShowTutorial={setShowTutorial}/> : null}
         </Container>
     )
 }
@@ -30,6 +49,14 @@ const Container = styled.div`
     width: 100%;
     padding: 15px;
     text-align: right;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+
+    div:first-of-type{
+        line-height: 30px;
+        text-align: left;
+        padding-left: 6px;
+    }
 
     h3{
         display: inline-block;

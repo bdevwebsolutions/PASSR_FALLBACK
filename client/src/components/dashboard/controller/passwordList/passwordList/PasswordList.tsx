@@ -2,7 +2,7 @@ import { RouteComponentProps } from '@reach/router';
 import React from 'react'
 import {StoreContext} from '../../../../../context/store';
 
-import { List } from '../list/List';
+import { List } from './list/List';
 import { Container } from './styles';
 
 export const PasswordList: React.FC<RouteComponentProps> = () => {

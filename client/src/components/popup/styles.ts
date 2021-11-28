@@ -25,7 +25,6 @@ export const Container = styled.div`
     font-weight: 600;
     color: ${props => props.theme.white};
     p{
-        border: solid 1px red;
         display: block;
         padding: 15px;
     }
