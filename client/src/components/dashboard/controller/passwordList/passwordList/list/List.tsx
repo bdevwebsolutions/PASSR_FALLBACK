@@ -1,5 +1,5 @@
 import React from 'react'
-import { TPasswordList } from '../../../../../context/types';
+import { TPasswordList } from '../../../../../../context/types';
 import { Container, ListItem } from './styles';
 
 export const List: React.FC<

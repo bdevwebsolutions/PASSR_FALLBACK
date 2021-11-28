@@ -100,7 +100,7 @@ const Container = styled.div`
         text-align: center;
 
         p{
-            text-align: left;
+            text-align: center;
             font-weight: bold;
         }
     }
