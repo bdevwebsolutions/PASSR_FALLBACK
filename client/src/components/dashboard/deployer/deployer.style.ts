@@ -45,28 +45,15 @@ export const Container = styled.div`
 
 export const Grid = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    grid-gap: 15px;
+    grid-template-columns: 1fr;
+    width: 550px;
+
+    button{
+        margin-bottom: 15px;
+    }
 
     div{
         background-color: ${props => props.theme.darkgrey};
         padding: 15px;
-        border: solid 1px ${props => props.theme.grey};
-        :hover{
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
-        }
-    }
-
-    div:first-of-type {
-        grid-row: 1/2;
-        grid-column: 1/3;
-        :hover{
-            box-shadow: none;
-        }
-    }
-    div:nth-of-type(2){
-        display: grid;
-        grid-template-rows: auto auto 1fr auto auto;
     }
 `
