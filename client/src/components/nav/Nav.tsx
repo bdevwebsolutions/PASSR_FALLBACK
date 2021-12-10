@@ -12,7 +12,7 @@ export const Nav: React.FC = () => {
     return(
         <Container>
             <h1>PASSR_.</h1>
-            <Navlink to="/dashboard">
+            <Navlink default to="/">
                 <AiFillHome/>
                 Dashboard
             </Navlink>

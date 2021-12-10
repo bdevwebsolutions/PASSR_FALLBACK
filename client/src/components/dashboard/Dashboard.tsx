@@ -1,5 +1,5 @@
 import React from 'react'
-import { Details } from './passwordDetails/Details';
+import Details from './passwordDetails';
 import {TopBar} from './top';
 import { Container, GeneralSettings, Passwords, PasswordContent, Disclaimer } from './styles'
 import DashboardController from './controller'
@@ -10,7 +10,7 @@ import { navigate } from '@reach/router';
 export const Dashboard: React.FC = () => {
 
     React.useEffect(() => {
-        navigate('/dashboard/passwords')
+        navigate('/passwords')
     }, [])
 
     return (

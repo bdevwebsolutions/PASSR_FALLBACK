@@ -6,7 +6,7 @@ import { IconButton, theme } from '../../../styling/global';
 import { Master } from './master/Master';
 import { PopupForm } from './passwordList/addNew/Form';
 import { PasswordList } from './passwordList/passwordList/PasswordList';
-import { Settings } from './settings/Settings';
+import { Settings } from './passwordList/settings/Settings';
 
 const DashboardController: React.FC = () => {
 
@@ -15,7 +15,7 @@ const DashboardController: React.FC = () => {
         <Container>
             <Nav>
                 <TopButtons>
-                    <Navlink default to="passwords">
+                    <Navlink to="passwords">
                         <IconButton>
                             <AiOutlineLock size={24}/>
                         </IconButton>

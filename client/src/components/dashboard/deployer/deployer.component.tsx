@@ -93,11 +93,7 @@ export const Component = () => {
             <Grid>
                 <div>
                     <h2>Welcome to PASSR_.</h2>
-                </div>
-                <div>
-                    <h3>Already deployed a contract ?</h3>
-                    <p><b>Great!</b></p>
-                    <p>Load from contract address.</p>
+                    <br></br>
                     <input 
                         type="text"  
                         defaultValue={STORE.address} 
@@ -108,12 +104,8 @@ export const Component = () => {
                         disabled={!STORE.isValidAddress} 
                         onClick={handleContractSet}
                     >{STORE.isValidAddress ? "Load from contract address" : "Invalid contract address"}</GreenButton>
-                </div>
-                <div>
-                    <h3>Deploy a new contract .</h3>
-                    <p>Deploying a new contract will give you a contract address, this will be stored in your local storage. <br></br><br></br><b>!! COPY THIS ADDRESS AND STORE IT SOMEWHERE SAFE !! </b><br></br> There is no risk in someone obtaining it, but losing it yourself will make you lose all access to your passwords.</p>
-                    <br></br>
                     <PrimaryButton 
+                        disabled={STORE.address.length > 0}
                         onClick={deploy}
                     >Deploy a new contract.</PrimaryButton>
                     {STORE.deployementState === 0 ? null : <Popup>{STORE.PopupState[STORE.deployementState]}</Popup>}

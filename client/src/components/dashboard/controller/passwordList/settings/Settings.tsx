@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import { RedButton } from '../../../../styling/global';
+import { RedButton } from '../../../../../styling/global';
 import { RouteComponentProps } from '@reach/router';
 
 

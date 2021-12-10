@@ -8,7 +8,7 @@
 */
 import React from "react"
 import styled from "styled-components"
-import {Router} from '@reach/router';
+import {Router, Link} from '@reach/router';
 
 //COMPONENTS
 import { Nav } from "../components/nav/Nav";
@@ -22,7 +22,7 @@ const Dashboard = () => {
             <Nav/>
             <React.Suspense fallback={<span>Loading</span>}>
                 <Router>
-                    <Home path="/dashboard/*"/>
+                    <Home path="/*"/>
                 </Router>
             </React.Suspense>
         </Container>
