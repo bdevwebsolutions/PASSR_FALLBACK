@@ -108,7 +108,7 @@ export const SucceedForm: React.FC<{setDeployementState: React.Dispatch<number>}
 
     return <p>Succes</p>
 }
-export const BusyForm: React.FC = () => <p>Deploying</p>
+export const BusyForm: React.FC = () => <p>Deploying, this can take some time ...</p>
 export const FailedForm: React.FC<{setDeployementState: React.Dispatch<number>}> = ({setDeployementState}) => {
 
     window.setTimeout(() => {

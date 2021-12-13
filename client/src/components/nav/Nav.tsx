@@ -33,12 +33,13 @@ export const Nav: React.FC = () => {
             <Navlink to="/governance">
                 Governance 
             </Navlink>
-            */}
+
             <div></div>
             <Navlink to="/token">
                 <FaCoins/>
                 PASSR
             </Navlink>
+            */}
         </Container>
     )
 }
