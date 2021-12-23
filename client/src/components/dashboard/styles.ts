@@ -4,7 +4,7 @@ export const Container = styled.div`
 
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr 35px;
+    grid-template-rows: 61px 1fr 35px;
     height: 100%;
 `
 
@@ -26,6 +26,8 @@ export const PasswordContent = styled.div`
 `
 
 export const GeneralSettings = styled.div`
+    border-bottom: solid 1px ${props => props.theme.grey};
+
     grid-column: 1/3;
     grid-row: 1/2;
     width: auto;

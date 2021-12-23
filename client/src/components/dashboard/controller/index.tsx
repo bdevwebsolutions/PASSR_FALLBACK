@@ -16,24 +16,24 @@ const DashboardController: React.FC = () => {
             <Nav>
                 <TopButtons>
                     <Navlink to="passwords">
-                        <IconButton>
+                        <IconButton text="passwords">
                             <AiOutlineLock size={24}/>
                         </IconButton>
                     </Navlink>
                     <Navlink to="master">
-                        <IconButton>
+                        <IconButton text="master">
                             <AiOutlineKey size={24}/>
                         </IconButton>
                     </Navlink>
                     <Navlink to="new">
-                        <IconButton>
+                        <IconButton text="new">
                             <AiOutlinePlusCircle size={24}/>
                         </IconButton>
                     </Navlink>
                 </TopButtons>
                 <BottomButtons>
                     <Navlink to="settings">
-                        <IconButton>
+                        <IconButton text="settings">
                             <AiOutlineSetting size={24}/>
                         </IconButton>
                     </Navlink>
@@ -67,14 +67,14 @@ const Navlink = (props) => (
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: 60px auto;
+    grid-template-columns: 70px auto;
     height: 100%;
 `
 const Nav = styled.div`
     border-right: solid 1px ${props => props.theme.grey};
     height: 100%;
     padding-top: 15px;
-    padding-left: 5px;
+    padding-left: 10px;
 
     display: grid;
     grid-template-rows: 1fr auto;
@@ -82,7 +82,7 @@ const Nav = styled.div`
     button {
         height: 50px;
         width: 50px;
-        margin-bottom: 35px;
+        margin-bottom: 45px;
     }
 
 `

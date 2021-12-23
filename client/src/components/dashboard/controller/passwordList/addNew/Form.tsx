@@ -106,18 +106,24 @@ export const SucceedForm: React.FC<{setDeployementState: React.Dispatch<number>}
         setDeployementState(0)
     }, 1500)
 
-    return <p>Succes</p>
+    return <FormText>Succes</FormText>
 }
-export const BusyForm: React.FC = () => <p>Deploying, this can take some time ...</p>
+export const BusyForm: React.FC = () => <FormText>Deploying, this can take some time ...</FormText>
 export const FailedForm: React.FC<{setDeployementState: React.Dispatch<number>}> = ({setDeployementState}) => {
 
     window.setTimeout(() => {
         setDeployementState(0)
     }, 1500)
 
-    return <p>Failure</p>
+    return <FormText>Failure</FormText>
 
 }
+
+const FormText = styled.p`
+    display: block;
+    padding: 15px 35px;
+    background-color: ${props => props.theme.dark};
+`
 
 
 const Container = styled.div`

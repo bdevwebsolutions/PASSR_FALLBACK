@@ -88,9 +88,12 @@ contract PasswordVault is Ownable{
     returns true;
 
   */
+
+
   function addToVault(string memory _location, string memory _hashed, string memory _credential) public onlyOwner returns(bool){
     require(bytes(_location).length > 0, "Empty _location string not allowed");
     require(bytes(_hashed).length > 0, "Empty _hashed string not allowed");
+    require(bytes(_credential).length > 0, "Empty _credential string not allowed");
     for(uint i = 0; i < locations.length; i++){
       require(keccak256(bytes(locations[i])) != keccak256(bytes(_location)), "No duplicate locations allowed");
     }

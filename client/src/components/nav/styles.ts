@@ -4,10 +4,28 @@ export const Container = styled.div`
     background-color: ${props => props.theme.dark};
     padding: 0px 0px;
     display: grid;
-    grid-template-rows: 60px repeat(1, auto) 1fr auto;
+    grid-template-rows: 60px repeat(3, auto) 1fr;
     width: 200px;
     overflow: hidden;
     border-right: solid 1px ${props => props.theme.grey};
+
+    div{
+        border-top: solid 1px ${props => props.theme.grey};
+
+        p{
+            padding: 10px 10px;
+            color ${props => props.theme.grey};
+            font-weight: bold;
+            font-size: 12px;
+        }
+    }
+
+    div:last-of-type{
+        display: flex;
+        align-items: flex-end;
+        align-content: flex-end;
+        padding-bottom: 35px;
+    }
 
     h1{ 
         padding-left: 18px;
@@ -16,11 +34,13 @@ export const Container = styled.div`
     }
 
     a{  
-
-        font-size: 14px;
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 12px;
         color: ${props => props.theme.lightgrey};
         text-decoration: none;
-        font-weight: normal;
+        font-weight: bolder;
         padding: 10px 15px;
         text-align: left;
         
@@ -40,14 +60,5 @@ export const Container = styled.div`
             }
         }
     }
-
-    a:first-of-type{
-        margin-top: 15px;
-    }
-
-    a:last-of-type{
-        margin-bottom: 35px;
-    }
-
 
 `

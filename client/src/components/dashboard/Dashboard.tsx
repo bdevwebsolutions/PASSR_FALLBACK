@@ -10,7 +10,7 @@ import { navigate } from '@reach/router';
 export const Dashboard: React.FC = () => {
 
     React.useEffect(() => {
-        navigate('/passwords')
+        navigate('dashboard/passwords')
     }, [])
 
     return (

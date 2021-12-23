@@ -128,7 +128,16 @@ export const RedButton = styled(Button)`
     color: ${theme.red};
 `
 
-export const IconButton = styled.button`
+export const IconButton = styled.button<{text?: string}>`
+    position: relative;
+    &:after{
+        content: '${props => props.text}';
+        position: absolute;
+        bottom: -20px;
+        font-size: 9px;
+        color: ${theme.white};
+    }
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -159,8 +168,17 @@ export const IconButton = styled.button`
         svg{
             filter: invert(91%) sepia(9%) saturate(863%) hue-rotate(71deg) brightness(106%) contrast(101%);
         }
+        &:after{
+            color: ${theme.green};
+        } 
     }
     line-height: 30px;
+
+    :active{
+        svg{
+            filter: invert(91%) sepia(9%) saturate(863%) hue-rotate(71deg) brightness(106%) contrast(101%);
+        }
+    }
 `
 export const TextContainer = styled.div`
     max-width: 1200px;

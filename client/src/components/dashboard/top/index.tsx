@@ -45,7 +45,6 @@ export const TopBar: React.FC = () => {
 }
 
 const Container = styled.div`
-    border-bottom: solid 1px ${props => props.theme.grey};
     width: 100%;
     padding: 15px;
     text-align: right;
@@ -55,7 +54,7 @@ const Container = styled.div`
     div:first-of-type{
         line-height: 30px;
         text-align: left;
-        padding-left: 6px;
+        padding-left: 10px;
     }
 
     h3{

@@ -8,7 +8,7 @@
 */
 import React from "react"
 import styled from "styled-components"
-import {Router, Link} from '@reach/router';
+import {Router, navigate} from '@reach/router';
 
 //COMPONENTS
 import { Nav } from "../components/nav/Nav";
@@ -17,12 +17,16 @@ const Home = React.lazy(() => import('../components/Home'));
 
 const Dashboard = () => {
 
+    React.useEffect(() => {
+        navigate('/dashboard')
+    }, [])
+
     return (
         <Container>
             <Nav/>
             <React.Suspense fallback={<span>Loading</span>}>
                 <Router>
-                    <Home path="/*"/>
+                    <Home path="dashboard/*"/>
                 </Router>
             </React.Suspense>
         </Container>

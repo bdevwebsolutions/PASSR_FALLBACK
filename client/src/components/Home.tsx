@@ -16,7 +16,7 @@ import { StoreContext } from '../context/store';
 //COMPONENTS
 import Deployer from './dashboard/deployer';
 import { Dashboard } from './dashboard/Dashboard';
-import { RouteComponentProps } from '@reach/router';
+import { navigate, RouteComponentProps } from '@reach/router';
 
 const Home: React.FC<RouteComponentProps> = () => {
 
