@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { PrimaryButton } from '../styling/global'
 
 
 const NotConnected: React.FC = () => {
@@ -13,6 +14,8 @@ const NotConnected: React.FC = () => {
                 <p> Decentralized password managing.</p>
                 <p onClick={() => {window.location.reload()}}>Connect metamask to the matic chain to continue.</p>
                 <br></br>
+                <PrimaryButton><a href="https://www.google.com" target="_blank" rel="noopener noreferrer">WEBSITE</a></PrimaryButton>
+                <br/>
                 <sub>* refresh the page if connecting does not show the dashboard</sub>
             </div>
         </Container>
@@ -65,6 +68,17 @@ const Container = styled.div`
     sub{
         color:  ${props => props.theme.lightgrey};
         font-size: 12px;
+    }
+
+    button {
+        width: 120px;
+        display: block;
+        margin: 0px auto;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
     }
 
 `

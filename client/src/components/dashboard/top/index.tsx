@@ -14,7 +14,6 @@ export const TopBar: React.FC = () => {
 
     React.useEffect(() => {
         const isNew = localStorage.getItem("INITIAL_SESSION");
-        console.log(isNew);
         if(isNew !== "false") {
             setShowTutorial(true);
         }

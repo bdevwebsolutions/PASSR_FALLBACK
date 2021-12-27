@@ -19,7 +19,7 @@ const App: React.FC = () => {
 
   React.useEffect(() => {
     intializeEthereumConnection(setWeb3, setAccounts, setChainId);
-  }, [])
+  }, [setWeb3, setAccounts, setChainId])
 
 
     if (!web3) {
