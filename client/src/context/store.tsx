@@ -18,6 +18,7 @@ const StoreProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const [locationsCopy, setLocationsCopy] = React.useState([""]);
 
   const getPasswordsFromContract: TGetPasswordsFromContract = async (setLoading) => {
+    console.log('ok')
     //@ts-ignore
     setPasswordList(await getPasswords(accounts, web3, contract, setLoading));
     setLocationsAreEncrypted(true);

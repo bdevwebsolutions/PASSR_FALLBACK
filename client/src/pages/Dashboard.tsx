@@ -6,43 +6,33 @@
 
 
 */
+import { Paper } from "@mui/material";
 import React from "react"
-import styled from "styled-components"
-import {Router, navigate} from '@reach/router';
+import { Contract } from "../components/Contract";
+import { Passwords } from "../components/Passwords";
 
-//COMPONENTS
-import { Nav } from "../components/nav/Nav";
-//ROUTES
-const Home = React.lazy(() => import('../components/Home'));
+//TODO
+
+//CONTRACT
+//MASTER
+//DECRYPT
+//LIST
 
 const Dashboard = () => {
 
-    React.useEffect(() => {
-        navigate('/dashboard')
-    }, [])
-
     return (
-        <Container>
-            <Nav/>
-            <React.Suspense fallback={<span>Loading</span>}>
-                <Router>
-                    <Home path="dashboard/*"/>
-                </Router>
-            </React.Suspense>
-        </Container>
+        <div>
+            <Paper sx={{
+                padding: 2,
+                textAlign: "center",
+            }}>PASSR_. backup client</Paper>
+            <Contract/>
+            <Passwords/>
+        </div>
     )
 
 }
 
-//FULL DASHBOARD CONTAINER
-const Container = styled.div`
-    display: grid;
-    height: 100vh;
-    max-height: 100vh;
-    grid-template-rows: 1fr;
-    grid-template-columns: auto 1fr;
-
-`
 
 
 export default Dashboard;
